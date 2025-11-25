@@ -1,0 +1,105 @@
+{
+  "name": "git-commit-2-test",
+  "displayName": "GitCommit2Test",
+  "description": "AI生成Git提交代码的测试用例",
+  "version": "0.0.1",
+  "publisher": "your-publisher-name",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Testing",
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:gitCommit2TestView"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "gitCommit2Test",
+          "title": "Git提交测试用例",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "gitCommit2Test": [
+        {
+          "type": "webview",
+          "id": "gitCommit2TestView",
+          "name": "测试用例生成器"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "gitCommit2Test.generateTestCase",
+        "title": "生成测试用例"
+      },
+      {
+        "command": "gitCommit2Test.openSettings",
+        "title": "AI配置"
+      }
+    ],
+    "configuration": {
+      "title": "GitCommit2Test",
+      "properties": {
+        "gitCommit2Test.aiProvider": {
+          "type": "string",
+          "default": "openai",
+          "enum": [
+            "openai",
+            "anthropic",
+            "custom"
+          ],
+          "description": "AI服务提供商"
+        },
+        "gitCommit2Test.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "AI API密钥"
+        },
+        "gitCommit2Test.apiEndpoint": {
+          "type": "string",
+          "default": "",
+          "description": "自定义API端点（可选）"
+        },
+        "gitCommit2Test.model": {
+          "type": "string",
+          "default": "gpt-4",
+          "description": "使用的模型名称"
+        },
+        "gitCommit2Test.systemPrompt": {
+          "type": "string",
+          "default": "你是一个专业的测试用例生成助手。根据提供的代码变更内容，生成详细的测试用例。",
+          "description": "系统提示词"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/vsce": "^2.32.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}
